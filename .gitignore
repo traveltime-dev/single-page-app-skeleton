@@ -1,0 +1,11 @@
+*.iml
+target
+.idea
+client/public/app
+backend/logs
+docker/client/app
+docker/backend/backend.tgz
+screenshot.png
+node_modules
+.ensime
+.ensime_cache/

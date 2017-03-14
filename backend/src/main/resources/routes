@@ -1,0 +1,2 @@
+GET  /api/date                 backend.rest.controllers.DateController.date
+GET  /api/version              backend.rest.controllers.VersionController.version

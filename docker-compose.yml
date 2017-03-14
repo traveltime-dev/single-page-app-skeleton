@@ -1,0 +1,30 @@
+client:
+  build: docker/client
+  ports:
+    - "8080:80"
+  volumes:
+    - ./client/public:/opt/spa-client
+  links:
+    - backend
+client-builder:
+  image: igeolise/scalajs-test-runner:latest
+  environment:
+    - LOCAL_USER_ID=${CURRENT_USER_ID}
+  volumes:
+    - .:/opt/app
+    - ~/.sbt:/home/user/.sbt
+    - ~/.ivy2:/home/user/.ivy2
+  working_dir: /opt/app
+  command: sbt "project client" ~fastOptJS
+backend:
+  image: igeolise/scalajs-test-runner:latest
+  environment:
+    - LOCAL_USER_ID=${CURRENT_USER_ID}
+    - SPA_CONFIG_FOLDER=local
+  stdin_open: true
+  volumes:
+    - .:/opt/app
+    - ~/.sbt:/home/user/.sbt
+    - ~/.ivy2:/home/user/.ivy2
+  working_dir: /opt/app
+  command: sbt "project backend" run

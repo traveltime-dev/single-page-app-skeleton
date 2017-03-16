@@ -13,7 +13,7 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 export CURRENT_USER_ID=$(id -u)
 
-$DIR/ensure_cache_dirs.sh
+$DIR/ensure-cache-dirs.sh
 
 #ensure newest image versions are pulled
 docker pull igeolise/scalajs-test-runner:latest

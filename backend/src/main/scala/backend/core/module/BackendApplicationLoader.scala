@@ -9,7 +9,7 @@ class BackendApplicationLoader extends GuiceApplicationLoader {
   override def builder(context: ApplicationLoader.Context): GuiceApplicationBuilder = {
     BufferPool.disable()
 
-    val configFolder = sys.env("SPA_CONFIG_FOLDER")
+    val configFolder = sys.env("BACKEND_CONFIG_FOLDER")
     val config       = ConfigFactory.load(s"$configFolder/app.conf")
 
     val updatedContext = context.copy(initialConfiguration = Configuration(config))

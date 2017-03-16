@@ -13,7 +13,7 @@ IMAGE=igeolise/scalajs-test-runner:latest
 
 CURRENT_USER_ID=$(id -u)
 
-$DIR/ensure_cache_dirs.sh
+$DIR/ensure-cache-dirs.sh
 
 docker pull $IMAGE
 

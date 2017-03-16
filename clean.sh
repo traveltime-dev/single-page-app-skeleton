@@ -17,7 +17,7 @@ CURRENT_USER_ID=$(id -u)
 
 docker pull $IMAGE
 
-$DIR/ensure_cache_dirs.sh
+$DIR/ensure-cache-dirs.sh
 
 docker run --rm -v $DIR:/opt/app -v ~/.sbt:/home/user/.sbt -v ~/.ivy2:/home/user/.ivy2 -w /opt/app -e LOCAL_USER_ID=${CURRENT_USER_ID} $IMAGE sbt clean
 

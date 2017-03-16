@@ -3,7 +3,7 @@ client:
   ports:
     - "8080:80"
   volumes:
-    - ./client/public:/opt/spa-client
+    - ./client/public:/opt/client
   links:
     - backend
 client-builder:
@@ -20,7 +20,7 @@ backend:
   image: igeolise/scalajs-test-runner:latest
   environment:
     - LOCAL_USER_ID=${CURRENT_USER_ID}
-    - SPA_CONFIG_FOLDER=local
+    - BACKEND_CONFIG_FOLDER=local
   stdin_open: true
   volumes:
     - .:/opt/app

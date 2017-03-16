@@ -1,3 +1,5 @@
+import scala.util.Try
+
 lazy val commonSettings = Seq[Def.SettingsDefinition](
   version := "0.6-SNAPSHOT",
   scalaVersion := "2.11.8",
@@ -49,10 +51,12 @@ lazy val singlePageApp = (project in file("."))
   )
   .aggregate(backend, client, sharedJVM, sharedJS)
 
-val gitDescribeWithoutHash = TaskKey[String]("git-describe")
+val gitDescribeWithoutHash = TaskKey[Option[String]]("git-describe")
 gitDescribeWithoutHash in Global := {
   val command = Process("git describe --tags --first-parent")
-  command.lines.head.split("-g").head
+  Try {
+    command.lines.head.split("-g").head
+  }.toOption
 }
 
 lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared"))

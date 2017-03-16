@@ -2,9 +2,8 @@ FROM igeolise/openjdk:8
 
 ADD backend.tgz /opt
 
-RUN mv /opt/* /opt/spa-backend
+RUN mv /opt/* /opt/backend
 
-VOLUME ["/opt/spa-backend/logs"]
-VOLUME ["/opt/spa-backend/filebeat"]
+VOLUME ["/opt/backend/logs"]
 
-CMD cd /opt/spa-backend && bin/backend
+CMD cd /opt/backend && bin/backend

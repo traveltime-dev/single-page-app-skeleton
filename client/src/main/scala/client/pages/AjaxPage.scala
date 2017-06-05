@@ -52,12 +52,13 @@ trait ConcreteAjaxPageWired extends AjaxPageComponent { this: CommonHandlerUtils
       def render(p: ModelProxy[Props], s: Unit) = {
 
         val list = p.wrap { identity }(
-          p => <.div(p.value.ajaxPageModel.messages.map(m => <.div(style.messageStyle, m))).render
+          p => <.ul(style.messageList, p.value.ajaxPageModel.messages.map(m => <.li(m))).render
         )
 
         <.div(
-          <.flatButton(
-            Styles.coloredBackgroundButton(Styles.redStyle),
+          ^.className := "uk-padding-small",
+          <.button(
+            Styles.primaryButton,
             "Fetch from server",
             ^.onClick ==> { e: SyntheticEvent[dom.Node] =>
               onRequestMessage(e)
@@ -71,8 +72,8 @@ trait ConcreteAjaxPageWired extends AjaxPageComponent { this: CommonHandlerUtils
     class Style extends StyleSheet.Inline {
       import dsl._
 
-      val messageStyle = style(
-        color.purple
+      val messageList = style(
+        addClassNames("uk-list", "uk-list-bullet")
       )
     }
   }

@@ -99,6 +99,7 @@ val diodeVersion        = "1.1.0"
 val reactVersion        = "15.3.2"
 val clientBuildOutput   = file("./client/public/app/")
 val monocleVersion      = "1.4.0"
+val uikitVersion        = "3.0.0-beta.24"
 
 lazy val elideOptions = settingKey[Seq[String]]("Set limit for elidable functions")
 
@@ -141,7 +142,13 @@ lazy val client = (project in file("client"))
         / "react-dom-server.js"
         minified "react-dom-server.min.js"
         dependsOn "react-dom.js"
-        commonJSName "ReactDOMServer"
+        commonJSName "ReactDOMServer",
+      "org.webjars.bower" % "uikit" % uikitVersion
+        / "dist/js/uikit.js"
+        minified "dist/js/uikit.min.js",
+      "org.webjars.bower" % "uikit" % uikitVersion
+        / "dist/js/uikit-icons.js"
+        minified "dist/js/uikit-icons.min.js"
     ),
     requiresDOM := true,
     scalaJSStage in Test := FastOptStage,

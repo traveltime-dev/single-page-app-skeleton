@@ -54,22 +54,29 @@ trait ConcreteCounterPageWired extends CounterPageComponent {
         val c = p.wrap { identity }(p => <.div(p.value.counterPageModel.counter).render)
 
         <.div(
-          Styles.bodyStyle,
+          ^.className := "uk-padding-small",
           "current value",
-          <.p(style.bold, c),
-          <.flatButton(
-            Styles.coloredBackgroundButton(Styles.redStyle),
-            "Increment",
-            ^.onClick ==> { e: SyntheticEvent[dom.Node] =>
-              onIncrement(e)
-            }
-          ),
-          <.flatButton(
-            Styles.coloredBackgroundButton(Styles.blueStyle),
-            "Decrement",
-            ^.onClick ==> { e: SyntheticEvent[dom.Node] =>
-              onDecrement(e)
-            }
+          <.div(style.bold, c),
+          <.div(
+            ^.className := "uk-grid",
+            <.div(
+              <.button(
+                Styles.primaryButton,
+                "Increment",
+                ^.onClick ==> { e: SyntheticEvent[dom.Node] =>
+                  onIncrement(e)
+                }
+              )
+            ),
+            <.div(
+              <.button(
+                Styles.primaryButton,
+                "Decrement",
+                ^.onClick ==> { e: SyntheticEvent[dom.Node] =>
+                  onDecrement(e)
+                }
+              )
+            )
           )
         )
       }

@@ -4,6 +4,7 @@ import client.components.AllTags._
 import client.pages._
 import client.styles.Styles._
 import japgolly.scalajs.react.extra.router._
+import japgolly.scalajs.react.vdom.ReactAttr
 
 import scalacss.ScalaCssReact._
 
@@ -41,12 +42,13 @@ trait ConcreteAppRouterWired extends AppRouterComponent {
     def layout(router: RouterCtl[Page], r: Resolution[Page]) = {
       <.div(
         Styles.bodyStyle,
-        <.div(
-          <.flatButton("Counter page", router.setOnClick(Page.CounterPage)),
-          <.flatButton("Ajax page", router.setOnClick(Page.AjaxPage)),
-          ^.borderBottom := "black 1px solid"
+        <.ul(
+          ^.className := "uk-tab",
+          ReactAttr.Generic("data-uk-tab") := "",
+          <.li( (r.page == Page.CounterPage) ?= (^.className := "uk-active"), <.a("Counter page", router.setOnLinkClick(Page.CounterPage))),
+          <.li((r.page == Page.AjaxPage) ?= (^.className := "uk-active"),  <.a("Ajax page", router.setOnLinkClick(Page.AjaxPage)))
         ),
-        <.div(r.render())
+        r.render()
       )
     }
   }

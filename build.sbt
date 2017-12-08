@@ -134,7 +134,7 @@ lazy val client = (project in file("client"))
       "expose-loader" -> "0.7.1"
     ),
     webpackConfigFile := Some(baseDirectory.value / "webpack.config.js"),
-   // scalaJSStage in Test := FastOptStage,
+    scalaJSStage in Test := FastOptStage,
     skip in packageJSDependencies := false
   )
   .dependsOn(sharedJS)

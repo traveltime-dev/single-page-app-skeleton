@@ -105,9 +105,12 @@ lazy val elideOptions = settingKey[Seq[String]]("Set limit for elidable function
 
 lazy val client = (project in file("client"))
   .enablePlugins(ScalaJSPlugin)
+  .enablePlugins(ScalaJSBundlerPlugin)
   .settings(commonSettings: _*)
   .settings(
     name := "client",
+    webpackBundlingMode := BundlingMode.LibraryAndApplication(),
+    scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
       "org.scala-js"                      %%% "scalajs-dom"   % "0.9.1",
       "com.github.japgolly.scalajs-react" %%% "core"          % scalajsReactVersion,
@@ -122,34 +125,15 @@ lazy val client = (project in file("client"))
     elideOptions := Seq(),
     scalacOptions ++= elideOptions.value,
     scalaJSStage in Global := FullOptStage,
-    persistLauncher in Compile := true,
-    persistLauncher in Test := false,
     crossTarget in (Compile, fastOptJS) := clientBuildOutput,
     crossTarget in (Compile, fullOptJS) := clientBuildOutput,
-    crossTarget in (Compile, packageScalaJSLauncher) := clientBuildOutput,
-    crossTarget in (Compile, packageJSDependencies) := clientBuildOutput,
-    jsDependencies ++= Seq(
-      "org.webjars.bower" % "react" % reactVersion
-        / "react-with-addons.js"
-        minified "react-with-addons.min.js"
-        commonJSName "React",
-      "org.webjars.bower" % "react" % reactVersion
-        / "react-dom.js"
-        minified "react-dom.min.js"
-        dependsOn "react-with-addons.js"
-        commonJSName "ReactDOM",
-      "org.webjars.bower" % "react" % reactVersion
-        / "react-dom-server.js"
-        minified "react-dom-server.min.js"
-        dependsOn "react-dom.js"
-        commonJSName "ReactDOMServer",
-      "org.webjars.bower" % "uikit" % uikitVersion
-        / "dist/js/uikit.js"
-        minified "dist/js/uikit.min.js",
-      "org.webjars.bower" % "uikit" % uikitVersion
-        / "dist/js/uikit-icons.js"
-        minified "dist/js/uikit-icons.min.js"
+    npmDependencies in Compile ++= Seq(
+      "react" -> reactVersion,
+      "react-dom" -> reactVersion,
+      "uikit" -> uikitVersion
     ),
+    npmDevDependencies in Compile += "expose-loader" -> "0.7.1",
+    webpackConfigFile := Some(baseDirectory.value / "webpack.config.js"),
     requiresDOM := true,
     scalaJSStage in Test := FastOptStage,
     skip in packageJSDependencies := false

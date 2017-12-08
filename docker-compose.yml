@@ -15,7 +15,7 @@ client-builder:
     - ~/.sbt:/home/user/.sbt
     - ~/.ivy2:/home/user/.ivy2
   working_dir: /opt/app
-  command: sbt "project client" ~fastOptJS
+  command: sbt "project client" ~fastOptJS::webpack
 backend:
   image: igeolise/scalajs-test-runner:latest
   environment:

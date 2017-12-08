@@ -36,7 +36,7 @@ lazy val ReleaseCmd = Command.command("release") { state =>
   "set elideOptions in client := Seq(\"-Xelide-below\", \"OFF\")" ::
     "client/clean" ::
     "backend/clean" ::
-    "client/fullOptJS" ::
+    "client/fullOptJS::webpack" ::
     "backend/test" ::
     "client/test" ::
     "backend/universal:packageZipTarball" ::
@@ -130,12 +130,11 @@ lazy val client = (project in file("client"))
     npmDependencies in Compile ++= Seq(
       "react" -> reactVersion,
       "react-dom" -> reactVersion,
-      "uikit" -> uikitVersion
+      "uikit" -> uikitVersion,
+      "expose-loader" -> "0.7.1"
     ),
-    npmDevDependencies in Compile += "expose-loader" -> "0.7.1",
     webpackConfigFile := Some(baseDirectory.value / "webpack.config.js"),
-    requiresDOM := true,
-    scalaJSStage in Test := FastOptStage,
+   // scalaJSStage in Test := FastOptStage,
     skip in packageJSDependencies := false
   )
   .dependsOn(sharedJS)

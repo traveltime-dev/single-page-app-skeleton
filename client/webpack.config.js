@@ -6,7 +6,8 @@ var config = require('./scalajs.webpack.config');
 // Exported modules (here, React and ReactDOM)
 var globalModules = {
   "react": "React",
-  "react-dom": "ReactDOM"
+  "react-dom": "ReactDOM",
+ // "react-transition-group": "CSSTransitionGroup"
 };
 
 Object.keys(config.entry).forEach(function(key) {

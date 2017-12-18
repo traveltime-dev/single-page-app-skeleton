@@ -1,5 +1,6 @@
 package client
 
+import client.components.CSSTransitionGroup
 import japgolly.scalajs.react.ReactDOM
 import org.scalajs.dom
 
@@ -18,5 +19,6 @@ object App extends JSApp {
     val cake = new ApplicationCake {}
 
     val _ = ReactDOM.render(cake.appRouter.router.withKey("router")(), contentNode)
+    dom.console.log(CSSTransitionGroup)
   }
 }

@@ -127,11 +127,13 @@ lazy val client = (project in file("client"))
     scalaJSStage in Global := FullOptStage,
     crossTarget in (Compile, fastOptJS) := clientBuildOutput,
     crossTarget in (Compile, fullOptJS) := clientBuildOutput,
+    crossTarget in (Compile, npmUpdate) := clientBuildOutput,
     npmDependencies in Compile ++= Seq(
       "react" -> reactVersion,
       "react-dom" -> reactVersion,
       "uikit" -> uikitVersion,
-      "expose-loader" -> "0.7.1"
+      "expose-loader" -> "0.7.1",
+      "react-transition-group" -> "2.2.1"
     ),
     webpackConfigFile := Some(baseDirectory.value / "webpack.config.js"),
     scalaJSStage in Test := FastOptStage,
